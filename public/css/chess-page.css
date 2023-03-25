@@ -1,0 +1,126 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1c1c1e;
+    color: white;
+  }
+}
+h2 {
+  display: inline;
+  width: 30%;
+}
+
+button {
+  /* remove default behavior */
+  appearance: none;
+  -webkit-appearance: none;
+
+  /* usual styles */
+  margin: auto;
+  margin-left: 10px;
+  padding: 5px;
+  border: none;
+  background-color: #e3edf1;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.footer {
+  position: absolute;
+  text-align: right;
+  bottom: 0;
+  width: 95%;
+  height: 60px;
+  padding-right: 2%;
+  z-index: -50;
+}
+.footer a {
+  color: inherit;
+}
+
+.colored {
+  color: #5a6bc9;
+}
+.background-colored {
+  background-color: #5a6bc9;
+}
+
+.centered {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+.centered-horizontal {
+  text-align: center;
+  margin: auto;
+}
+
+.swal-wide {
+  width: 100% !important;
+}
+
+.clearfix-7da63 {
+  clear: both;
+}
+.board-b72b1 {
+  border: 2px solid #404040;
+  box-sizing: content-box;
+}
+.square-55d63 {
+  float: left;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.white-1e1d7 {
+  background-color: #e3edf1;
+  color: #5a6bc9;
+}
+.black-3c85d {
+  background-color: #5a6bc9;
+  color: #e3edf1;
+}
+.highlight1-32417,
+.highlight2-9c5d2 {
+  box-shadow: inset 0 0 3px 3px #ff0;
+}
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+.alpha-d2270 {
+  bottom: 1px;
+  right: 3px;
+}
+.numeric-fc462 {
+  top: 2px;
+  left: 2px;
+}
+.highlight-square {
+  box-shadow: inset 0 0 3px 3px orange;
+}
+.board {
+  width: 35%;
+}
+.check-square {
+  box-shadow: inset 0 0 3px 3px #f45151;
+}
+
+@media (max-width: 1000px) {
+  .board {
+    width: 95%;
+  }
+}

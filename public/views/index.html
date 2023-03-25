@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Falcon Chess - Home</title>
+  </head>
+
+  <body>
+    <div class="half centered-table centered">
+      <h1>Chess</h1>
+      <h2>Create a new room</h2>
+      <form method="get" id="formMulti" action="/play/online">
+        <h3>Choose a Username</h3>
+        <input
+          type="text"
+          name="userName"
+          id="userName"
+          minlength="3"
+          placeholder="Username"
+          autocomplete="off"
+          required
+        />
+        <br />
+        <h3>Choose a Room Name, if you want to create a new one</h3>
+        <input
+          type="text"
+          name="roomName"
+          id="roomName"
+          minlength="3"
+          required
+          autocomplete="off"
+          placeholder="Room Name"
+        />
+        <div class="tab centered-table">
+          <button
+            class="tablinks half centered"
+            onclick="switchTab(event, 'multiplayerTab')"
+            id="multiplayerTabButton"
+          >
+            <h3>Multiplayer</h3>
+          </button>
+          <button
+            class="tablinks half centered"
+            id="singleplayerTabButton"
+            onclick="document.location = '/play/bot'"
+          >
+            <h3>Play a Bot</h3>
+          </button>
+        </div>
+        <div id="multiplayerTab" class="tabcontent centered-table">
+          <button
+            id="createRoomButton"
+            onclick="createRoom('multi')"
+            class="submit"
+          >
+            Create Game room
+          </button>
+        </div>
+      </form>
+
+      <h2>Or join one that already exists</h2>
+      <table id="roomTable" class="centered-table">
+        <tr>
+          <th>Room name</th>
+          <th>White</th>
+          <th>Black</th>
+          <th>Spectators</th>
+          <th></th>
+        </tr>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <footer class="footer">
+      Open source project available on
+      <b
+        ><a
+          href="https://github.com/JeherillaJanwar/Online-Chess"
+          target="_blank"
+          >GitHub</a
+        ></b
+      >
+      <br />
+      Made by
+      <b
+        ><a href="https://cutt.ly/328069i" target="_blank"
+          >Ishaan Sharma (JeherillaJanwar)</a
+        ></b
+      >
+      © 2023
+    </footer>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/scripts/index.js"></script>
+  <script src="/scripts/tabs.js"></script>
+  <script>
+    console.log("opening multiplayer tab");
+    document.getElementById("multiplayerTabButton").click();
+  </script>
+</html>

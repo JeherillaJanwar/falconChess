@@ -1,0 +1,126 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 60px; /* Margin bottom by footer height */
+}
+
+h1 {
+  color: #3f51b5;
+}
+
+input,
+select {
+  margin: 20px;
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  width: 80%;
+  height: 35px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.submit {
+  /* remove default behavior */
+  /* appearance: none;
+  -webkit-appearance: none; */
+
+  /* usual styles */
+  margin: 20px;
+  padding: 10px;
+  border: none;
+  background-color: #3f51b5;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 50%;
+}
+.centered {
+  display: block;
+  text-align: center;
+}
+.centered-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.half {
+  width: 50%;
+}
+
+.footer {
+  /* position: absolute; */
+  text-align: right;
+  bottom: 0;
+  margin-top: 5%;
+  width: 95%;
+  height: 60px; /* Set the fixed height of the footer here */
+  padding-right: 2%;
+}
+.footer a {
+  color: inherit;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #7e88c4;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #3f51b5;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+
+.tabcontent {
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1c1c1e;
+    color: white;
+  }
+}
+@media (max-width: 600px) {
+  .footer {
+    position: static;
+  }
+  .half {
+    width: 98%;
+  }
+  .tabcontent {
+    animation: none;
+  }
+}
