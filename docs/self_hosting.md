@@ -1,4 +1,4 @@
-# Falcon Chess - Self Hosting
+# falconChess - Self Hosting
 
 ## Requirements
 
