@@ -49,7 +49,7 @@ $ npm install
 # Start the server
 $ npm start
 ```
-Open `localhost:3000` and enjoy chess
+Open `localhost:8080` and enjoy chess
 </details>
 
 <details>
