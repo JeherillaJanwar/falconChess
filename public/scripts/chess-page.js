@@ -30,16 +30,19 @@ function fairPlayAlerts() {
     customClass: "swal-wide",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire({
-        background: "rgba(0, 0, 0)",
-        icon: "warning",
-        position: "center",
-        html: `<h1>NOTE</h1><br>
-                    <div style="color: white">
-                    <p>You will not be able to drag pieces with touchscreen. Please use a mouse/trackpad</p>
-                    </div>
-                    `,
-      });
+        if ('ontouchstart' in window) {
+            // Device has a touch screen
+            Swal.fire({
+                background: "rgba(0, 0, 0)",
+                icon: "warning",
+                position: "center",
+                html: `<h1>NOTE</h1><br>
+<div style="color: white">
+<p>You will not be able to drag pieces with touchscreen. Please use a mouse/trackpad</p>
+</div>
+`,
+            });
+        }
     } else if (result.isDenied) {
       document.location = "/";
     }

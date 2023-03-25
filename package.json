@@ -1,7 +1,7 @@
 {
   "name": "falcon-chess",
   "version": "1.0.0",
-  "description": "",
+  "description": "Play Chess online or with Stockfish for FREE",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -11,7 +11,7 @@
   "license": "BSD-3-Clause license",
   "dependencies": {
     "@chrisoakman/chessboardjs": "^1.0.0",
-    "chess.js": "^0.13.4",
+    "chess.js": "^0.12.1",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "ngrok": "^4.3.3",
