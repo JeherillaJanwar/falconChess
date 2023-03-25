@@ -11,7 +11,7 @@ const io = new Server(server);
 const ngrok = require("ngrok");
 const ngrokEnabled = process.env.NGROK_ENABLED == "true" ? true : false;
 const ngrokAuthToken = process.env.NGROK_AUTH_TOKEN;
-const port = 3000;
+const port = 8080;
 
 async function ngrokStart() {
   try {
