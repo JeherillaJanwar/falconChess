@@ -11,7 +11,7 @@
   "license": "BSD-3-Clause license",
   "dependencies": {
     "@chrisoakman/chessboardjs": "^1.0.0",
-    "chess.js": "^0.12.0",
+    "chess.js": "^0.13.4",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "ngrok": "^4.3.3",
