@@ -34,7 +34,7 @@ $ npm install
 $ npm start
 ```
 
-Check if is correctly installed: https://your.domain.name:3000
+Check if is correctly installed: https://your.domain.name:8080
 
 ---
 
