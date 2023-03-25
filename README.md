@@ -57,7 +57,7 @@ Open `localhost:8080` and enjoy chess
 
 <br/>
 
-To self-hosting falconChess, just follow [these steps](JeherillaJanwar/falconChess/docs/self_hosting.md).
+To self-hosting falconChess, just follow [these steps](https://github.com/JeherillaJanwar/falconChess/blob/main/docs/self_hosting.md).
 
 </details>
 
