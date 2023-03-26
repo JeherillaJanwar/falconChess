@@ -9,20 +9,21 @@ function fairPlayAlerts() {
     background: "rgba(0, 0, 0)",
     icon: "warning",
     position: "center",
-    html: `<h1>PLAY FAIR</h1><br>
-                <div style="color: white">
-                <ol>
-                <li>No cheating of any kind</li>
-                <li>No stalling</li>
-                <li>All of your moves must be your own</li>
-                <li>Do not get help from any other person, including parents, friends, coaches or another player</li>
-                <li>Do not use chess engines, software of any kind, bots, plugins or any tools that analyze positions during play</li>
-                <li>Do not artificially manipulate ratings, matches, or game outcomes</li>
-                <li>Do not perform any automated analysis or “blunder checking” of your games in progress</li>
-                <li>Do not interfere with the gameplay of other members</li>
+    html: `<h1>PLAY FAIR</h1>
+           <br>
+            <div style="color: white">
+              <ol>
+                <li>No cheating of any kind.</li>
+                <li>No stalling.</li>
+                <li>All of your moves must be your own.</li>
+                <li>Do not get help from any other person, including parents, friends, coaches or another player.</li>
+                <li>Do not use chess engines, software of any kind, bots, plugins or any tools that analyze positions during play.</li>
+                <li>Do not artificially manipulate ratings, matches, or game outcomes.</li>
+                <li>Do not perform any automated analysis or “blunder checking” of your games in progress.</li>
+                <li>Do not interfere with the gameplay of other members.</li>
                 <li>Suspecting your opponent of using outside help is not an excuse to do the same.</li>
-                </ol>
-                </div>
+              </ol>
+            </div>
                 `,
     showDenyButton: true,
     confirmButtonText: `Agree`,
@@ -30,19 +31,19 @@ function fairPlayAlerts() {
     customClass: "swal-wide",
   }).then((result) => {
     if (result.isConfirmed) {
-        if ('ontouchstart' in window) {
-            // Device has a touch screen
-            Swal.fire({
-                background: "rgba(0, 0, 0)",
-                icon: "warning",
-                position: "center",
-                html: `<h1>NOTE</h1><br>
-<div style="color: white">
-<p>You will not be able to drag pieces with touchscreen. Please use a mouse/trackpad</p>
-</div>
-`,
-            });
-        }
+      if ("ontouchstart" in window) {
+        // Device has a touch screen
+        Swal.fire({
+          background: "rgba(0, 0, 0)",
+          icon: "warning",
+          position: "center",
+          html: `<h1>NOTE</h1><br>
+                      <div style="color: white">
+                        <p>You may/may not be able to drag pieces with touchscreen. If not, please consider using a mouse/trackpad.</p>
+                      </div>
+                      `,
+        });
+      }
     } else if (result.isDenied) {
       document.location = "/";
     }
