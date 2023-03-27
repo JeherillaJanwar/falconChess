@@ -75,17 +75,10 @@ socket.on("room_list", (roomListServer) => {
     const roomSpecators = document.createElement("td");
     roomSpecators.innerText = room.spectators.length;
     
-    const hr = document.createElement("hr");
-    const wbhr = document.createElement("hr");
-    const bshr = document.createElement("hr");
-    const ex_hr = document.createElement("hr");
-    
-    
-
     // creating join room button
     const roomButton = document.createElement("td");
     const roomJoinButton = document.createElement("button");
-    roomJoinButton.textContent = "Join";
+    roomJoinButton.textContent = "Spectate";
     roomJoinButton.addEventListener("click", () => {
       joinRoom(room.name);
     });
@@ -95,13 +88,9 @@ socket.on("room_list", (roomListServer) => {
 
     // adding elements to row
     roomRow.appendChild(roomName);
-    roomRow.appendChild(hr);
     roomRow.appendChild(roomWhite);
-    roomRow.appendChild(wbhr);
     roomRow.appendChild(roomBlack);
-    roomRow.appendChild(bshr);
     roomRow.appendChild(roomSpecators);
-    roomRow.appendChild(ex_hr);
     roomRow.appendChild(roomButton);
 
     // adding row to table
