@@ -76,6 +76,11 @@ socket.on("room_list", (roomListServer) => {
     roomSpecators.innerText = room.spectators.length;
     
     const hr = document.createElement("hr");
+    const hr2 = document.createElement("hr");
+    const hr3 = document.createElement("hr");
+    const hr4 = document.createElement("hr");
+    
+    
 
     // creating join room button
     const roomButton = document.createElement("td");
@@ -92,11 +97,11 @@ socket.on("room_list", (roomListServer) => {
     roomRow.appendChild(roomName);
     roomRow.appendChild(hr);
     roomRow.appendChild(roomWhite);
-    roomRow.appendChild(hr);
+    roomRow.appendChild(hr2);
     roomRow.appendChild(roomBlack);
-    roomRow.appendChild(hr);
+    roomRow.appendChild(hr3);
     roomRow.appendChild(roomSpecators);
-    roomRow.appendChild(hr);
+    roomRow.appendChild(hr4);
     roomRow.appendChild(roomButton);
 
     // adding row to table
