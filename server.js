@@ -67,6 +67,10 @@ app.get("/play", (req, res) => {
   res.redirect("/");
 });
 
+app.get("*", (req, res) => {
+  res.send("404");
+});
+
 // handle user connection to server through socket
 io.on("connection", (socket) => {
   // console.log("user connected");
