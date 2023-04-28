@@ -52,8 +52,8 @@ function fairPlayAlerts() {
 
 // getting values from get request
 const params = new URLSearchParams(window.location.search);
-const roomName = params.get("roomName");
-const userName = params.get("userName");
+const roomName = sanitizeInput(params.get("roomName"));
+const userName = sanitizeInput(params.get("userName"));
 
 // preparing variables
 let board = null;
@@ -150,7 +150,7 @@ function updateBoard(fen) {
   }
 }
 
-if (userName == "" || !userName){
+if (userName == "" || !userName) {
   document.location = "/";
 } else {
   // joining socket room
@@ -158,7 +158,8 @@ if (userName == "" || !userName){
 }
 
 // updating page based on room status
-socket.on("room_status", (room) => {
+socket.on("room_status", (cfg) => {
+  const room = sanitizeInput(cfg);
   // update board
   if (room.fen !== null) {
     game.load(room.fen);
@@ -294,7 +295,8 @@ socket.on("room_status", (room) => {
 });
 
 // setting side based on server assignment
-socket.on("side", (sideServer) => {
+socket.on("side", (config) => {
+  const sideServer = sanitizeInput(config);
   side = sideServer;
   if (side === "b") {
     board.orientation("black");
@@ -307,13 +309,15 @@ function removeHighlights() {
   $("#myBoard .square-55d63").removeClass("highlight-square");
 }
 
-socket.on("update_board", (fen) => {
+socket.on("update_board", (config) => {
+  const fen = sanitizeInput(config);
   // update board
   updateBoard(fen);
   removeHighlights();
 });
 
-socket.on("move", (move) => {
+socket.on("move", (config) => {
+  const move = sanitizeInput(config);
   // highlight last move
   removeHighlights();
   $(`#myBoard .square-${move.from}`).addClass("highlight-square");
@@ -450,3 +454,22 @@ window.onresize = () => {
   config.position = game.fen();
   board = Chessboard("myBoard", config);
 };
+
+function sanitizeInput(input) {
+  // Escape any special characters in the input using encodeURIComponent
+  const sanitizedInput = encodeURIComponent(input);
+
+  // Use a content security policy to restrict external scripts and resources
+  const csp = "default-src 'self'; script-src 'self'";
+  document
+    .querySelector("meta[http-equiv='Content-Security-Policy']")
+    .setAttribute("content", csp);
+
+  // Use a JavaScript library to sanitize the input further, if available
+  if (window.DOMPurify) {
+    return DOMPurify.sanitize(sanitizedInput);
+  }
+
+  // If a library is not available, strip any potentially malicious code
+  return sanitizedInput.replace(/<[^>]*>?/gm, "");
+}
