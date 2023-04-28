@@ -25,12 +25,17 @@ const views = {
 // making public folder available, contains html, scripts, css, images
 app.use(express.static(dir.public));
 
+const files = {
+  chessboardjs: path.join(__dirname, "../", "node_modules/@chrisoakman/chessboardjs/dist"),
+  chessjs: path.join(__dirname, "../", "node_modules/chess.js"),
+}
+
 // making chessboardjs files available
 app.use(
-  express.static(`${__dirname}/node_modules/@chrisoakman/chessboardjs/dist/`)
+  express.static(files.chessboardjs)
 );
 // making chess.js files available
-app.use(express.static(`${__dirname}/node_modules/chess.js/`));
+app.use(express.static(files.chessjs));
 
 // answering / get requests with index.html
 app.get("/", (_req, res) => {
