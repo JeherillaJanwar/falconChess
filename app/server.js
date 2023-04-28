@@ -11,9 +11,20 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const checkXSS = require("./xss.js");
 const port = process.env.port ? process.env.port : 8080;
+const path = require("path")
+
+const dir = {
+  public: path.join(__dirname, '../', 'public'),
+};
+// html views
+const views = {
+  bot: path.join(__dirname, '../', 'public/views/bot.html'),
+  online: path.join(__dirname, '../', 'public/views/online.html'),
+  landing: path.join(__dirname, '../', 'public/views/index.html'),
+};
 
 // making public folder available, contains html, scripts, css, images
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(dir.public));
 
 // making chessboardjs files available
 app.use(
@@ -24,7 +35,7 @@ app.use(express.static(`${__dirname}/node_modules/chess.js/`));
 
 // answering / get requests with index.html
 app.get("/", (_req, res) => {
-  res.sendFile(`${__dirname}/public/views/index.html`);
+  res.sendFile(views.landing);
 });
 
 // keeping track of all the rooms
@@ -34,14 +45,14 @@ const rooms = [];
 // the client will get che chess-page.html otherwise it will get be redirected to /
 app.get("/play/online", (req, res) => {
   if (rooms.find((room) => room.name === checkXSS(req.query.roomName))) {
-    res.sendFile(`${__dirname}/public/views/online.html`);
+    res.sendFile(views.online);
   } else {
     res.redirect("/");
   }
 });
 
 app.get("/play/bot", (req, res) => {
-  res.sendFile(`${__dirname}/public/views/bot.html`);
+  res.sendFile(views.bot);
 });
 
 app.get("/play", (req, res) => {
