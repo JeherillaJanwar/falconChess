@@ -150,8 +150,12 @@ function updateBoard(fen) {
   }
 }
 
-// joining socket room
-socket.emit("join_room", roomName, userName);
+if (userName == "" || !userName){
+  document.location = "/";
+} else {
+  // joining socket room
+  socket.emit("join_room", roomName, userName);
+}
 
 // updating page based on room status
 socket.on("room_status", (room) => {
