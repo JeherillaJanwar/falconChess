@@ -9,22 +9,10 @@ const server = http.createServer(app);
 const { Chess } = require("chess.js");
 const { Server } = require("socket.io");
 const io = new Server(server);
-const checkXSS = require("./xss.js");
 const port = process.env.port ? process.env.port : 8080;
-const path = require("path")
-
-const dir = {
-  public: path.join(__dirname, '../', 'public'),
-};
-// html views
-const views = {
-  bot: path.join(__dirname, '../', 'public/views/bot.html'),
-  online: path.join(__dirname, '../', 'public/views/online.html'),
-  landing: path.join(__dirname, '../', 'public/views/index.html'),
-};
 
 // making public folder available, contains html, scripts, css, images
-app.use(express.static(dir.public));
+app.use(express.static(`${__dirname}/public`));
 
 // making chessboardjs files available
 app.use(
@@ -35,7 +23,7 @@ app.use(express.static(`${__dirname}/node_modules/chess.js/`));
 
 // answering / get requests with index.html
 app.get("/", (_req, res) => {
-  res.sendFile(views.landing);
+  res.sendFile(`${__dirname}/public/views/index.html`);
 });
 
 // keeping track of all the rooms
@@ -44,15 +32,15 @@ const rooms = [];
 // if a client is trying to join a room that exists,
 // the client will get che chess-page.html otherwise it will get be redirected to /
 app.get("/play/online", (req, res) => {
-  if (rooms.find((room) => room.name === checkXSS(req.query.roomName))) {
-    res.sendFile(views.online);
+  if (rooms.find((room) => room.name === req.query.roomName)) {
+    res.sendFile(`${__dirname}/public/views/online.html`);
   } else {
     res.redirect("/");
   }
 });
 
 app.get("/play/bot", (req, res) => {
-  res.sendFile(views.bot);
+  res.sendFile(`${__dirname}/public/views/bot.html`);
 });
 
 app.get("/play", (req, res) => {
@@ -64,9 +52,7 @@ app.get("*", (req, res) => {
 });
 
 // handle user connection to server through socket
-io.on("connection", (skt) => {
-  const socket = checkXSS(skt);
-
+io.on("connection", (socket) => {
   // console.log("user connected");
   socket.emit("room_list", rooms);
 
@@ -96,10 +82,7 @@ io.on("connection", (skt) => {
   });
 
   // handling join_room event
-  socket.on("join_room", (peer_name, peer_userName) => {
-    const name = checkXSS(peer_name);
-    const userName = checkXSS(peer_userName)
-
+  socket.on("join_room", (name, userName) => {
     console.log(userName, "is joining room", name);
 
     // find room the user want to join
@@ -132,9 +115,7 @@ io.on("connection", (skt) => {
     io.emit("room_list", rooms);
   });
 
-  socket.on("move", (config) => {
-    const san = checkXSS(config);
-
+  socket.on("move", (san) => {
     // find correct room
     const room = rooms.find((r) => r.name === roomNameSocket);
 
