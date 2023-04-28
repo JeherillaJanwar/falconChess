@@ -1,3 +1,5 @@
+"use strict";
+
 require("dotenv").config();
 
 const express = require("express");
@@ -7,29 +9,8 @@ const server = http.createServer(app);
 const { Chess } = require("chess.js");
 const { Server } = require("socket.io");
 const io = new Server(server);
-
-const ngrok = require("ngrok");
-const ngrokEnabled = process.env.NGROK_ENABLED == "true" ? true : false;
-const ngrokAuthToken = process.env.NGROK_AUTH_TOKEN;
-const port = 8080;
-
-async function ngrokStart() {
-  try {
-    await ngrok.authtoken(ngrokAuthToken);
-    await ngrok.connect(port);
-    const api = ngrok.getApi();
-    const data = await api.listTunnels();
-    const pu0 = data.tunnels[0].public_url;
-    const pu1 = data.tunnels[1].public_url;
-    const tunnelHttps = pu0.startsWith("https") ? pu0 : pu1;
-    // server settings
-    console.log("localhost setup on --> " + "http://localhost:" + port);
-    console.log("Server running on -->  " + tunnelHttps);
-  } catch (err) {
-    console.error("[Error] ngrokStart", err);
-    process.exit(1);
-  }
-}
+const checkXSS = require("./xss.js");
+const port = process.env.port ? process.env.port : 8080;
 
 // making public folder available, contains html, scripts, css, images
 app.use(express.static(`${__dirname}/public`));
@@ -52,7 +33,7 @@ const rooms = [];
 // if a client is trying to join a room that exists,
 // the client will get che chess-page.html otherwise it will get be redirected to /
 app.get("/play/online", (req, res) => {
-  if (rooms.find((room) => room.name === req.query.roomName)) {
+  if (rooms.find((room) => room.name === checkXSS(req.query.roomName))) {
     res.sendFile(`${__dirname}/public/views/online.html`);
   } else {
     res.redirect("/");
@@ -72,7 +53,9 @@ app.get("*", (req, res) => {
 });
 
 // handle user connection to server through socket
-io.on("connection", (socket) => {
+io.on("connection", (skt) => {
+  const socket = checkXSS(skt);
+
   // console.log("user connected");
   socket.emit("room_list", rooms);
 
@@ -102,7 +85,10 @@ io.on("connection", (socket) => {
   });
 
   // handling join_room event
-  socket.on("join_room", (name, userName) => {
+  socket.on("join_room", (peer_name, peer_userName) => {
+    const name = checkXSS(peer_name);
+    const userName = checkXSS(peer_userName)
+
     console.log(userName, "is joining room", name);
 
     // find room the user want to join
@@ -135,7 +121,9 @@ io.on("connection", (socket) => {
     io.emit("room_list", rooms);
   });
 
-  socket.on("move", (san) => {
+  socket.on("move", (config) => {
+    const san = checkXSS(config);
+
     // find correct room
     const room = rooms.find((r) => r.name === roomNameSocket);
 
@@ -286,4 +274,33 @@ server.listen(port, () => {
   } else {
     console.log(`listening on port:${server.address().port}`);
   }
+});
+
+
+// NGROK CONFIGURATION
+const ngrok = require("ngrok");
+const ngrokEnabled = process.env.NGROK_ENABLED == "true" ? true : false;
+const ngrokAuthToken = process.env.NGROK_AUTH_TOKEN;
+
+async function ngrokStart() {
+  try {
+    await ngrok.authtoken(ngrokAuthToken);
+    await ngrok.connect(port);
+    const api = ngrok.getApi();
+    const data = await api.listTunnels();
+    const pu0 = data.tunnels[0].public_url;
+    const pu1 = data.tunnels[1].public_url;
+    const tunnelHttps = pu0.startsWith("https") ? pu0 : pu1;
+    // server settings
+    console.log("localhost setup on --> " + "http://localhost:" + port);
+    console.log("Server running on -->  " + tunnelHttps);
+  } catch (err) {
+    console.error("[Error] ngrokStart", err);
+    process.exit(0);
+  }
+}
+
+process.on("SIGINT", () => {
+  console.log("SERVER CLOSED from port: ", port);
+  process.exit(0);
 });

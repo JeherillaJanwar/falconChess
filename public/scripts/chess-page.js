@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 window.onload = function () {

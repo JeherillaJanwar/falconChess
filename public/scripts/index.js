@@ -1,3 +1,5 @@
+"use strict";
+
 /* global io */
 /* eslint-disable no-unused-vars */
 

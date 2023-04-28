@@ -1,3 +1,5 @@
+"use strict";
+
 /* eslint-disable no-unused-vars */
 
 function switchTab(evt, tabName) {

@@ -1,3 +1,5 @@
+"use strict";
+
 var START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 var _engine,
   _curmoves = [];
